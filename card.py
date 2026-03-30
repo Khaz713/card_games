@@ -1,8 +1,10 @@
 class Card:
-    def __init__(self, suit, rank, value):
+    def __init__(self, suit, symbol, rank, value, color):
         self.suit = suit  # string
+        self.symbol = symbol #string
         self.rank = rank  # string
         self.value = value  # int, different games different scoring system
+        self.color = color # string
 
     def __str__(self):
         return f"{self.rank} of {self.suit}: {self.value}"

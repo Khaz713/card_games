@@ -5,7 +5,7 @@ import random
 class Deck:
     SUITS = ["Hearts", "Diamonds", "Clubs", "Spades"]
     RANKS = [
-        "Ace",
+        "A",
         "2",
         "3",
         "4",
@@ -15,12 +15,12 @@ class Deck:
         "8",
         "9",
         "10",
-        "Jack",
-        "Queen",
-        "King",
+        "J",
+        "Q",
+        "K",
     ]
     VALUES_DEFAULT = {
-        "Ace": 14,
+        "A": 14,
         "2": 2,
         "3": 3,
         "4": 4,
@@ -30,9 +30,9 @@ class Deck:
         "8": 8,
         "9": 9,
         "10": 10,
-        "Jack": 11,
-        "Queen": 12,
-        "King": 13,
+        "J": 11,
+        "Q": 12,
+        "K": 13,
     }
 
     def __init__(self):
@@ -43,8 +43,22 @@ class Deck:
         if reset:
             self.cards = []
         for suit in self.SUITS:
+            if suit == "Hearts" or suit[0] == "Diamonds":
+                color = "red"
+            else:
+                color = "black"
+
+            if suit == "Clubs":
+                symbol = "♣"
+            elif suit == "Spades":
+                symbol = "♠"
+            elif suit == "Hearts":
+                symbol = "♥"
+            else:
+                symbol = "♦"
+
             for rank in self.RANKS:
-                self.cards.append(Card(suit, rank, values[rank]))
+                self.cards.append(Card(suit, symbol, rank, values[rank], color))
 
     def shuffle(self):
         random.shuffle(self.cards)

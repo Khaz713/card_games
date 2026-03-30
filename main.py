@@ -1,13 +1,18 @@
-from deck import Deck
+import sys
+
+from PyQt6.QtWidgets import QApplication
+
+from layout_main_window import MainWindow
+
+
 
 def main():
-    deck = Deck()
-    deck.shuffle()
-    print(len(deck))
-    deck.remove_cards(["Hearts", "Diamonds"], ["Ace", "King", "Queen", "Jack"])
-    print(len(deck))
-    while len(deck) != 0:
-        print(deck.deal_card())
+    app = QApplication(sys.argv)
+    window = MainWindow()
+    window.show()
+    app.exec()
+
+
 
 
 

@@ -28,12 +28,37 @@ cards.shuffle()
 hand_player = []
 hand_dealer = []
 
+win = 0
+
+lose = 0
+
 
 
 class Blackjack(QWidget):
     def __init__(self, parent=None):
         super().__init__()
+        back = QHBoxLayout()
+        left = QVBoxLayout()
+        right = QVBoxLayout()
         layout = QVBoxLayout()
+        back.addLayout(left)
+        back.addLayout(layout)
+        back.addLayout(right)
+
+        self.win_lose = QLabel(f"Win: {win}\nLose: {lose}")
+        self.win_lose.setStyleSheet("background-color:black; color: white; font-size: 12pt; font-weight: bold")
+        self.win_lose.setFixedSize(150, 50)
+        left.addWidget(self.win_lose)
+        left.setAlignment(self.win_lose, Qt.AlignmentFlag.AlignBottom)
+
+        test2 = QLabel("Test2")
+        test2.setStyleSheet("background-color:black; color: black; font-size: 12pt; font-weight: bold")
+        test2.setFixedSize(150, 50)
+        right.addWidget(test2)
+        right.setAlignment(test2, Qt.AlignmentFlag.AlignBottom)
+
+
+
 
         label = QLabel("BLACKJACK")
         font = label.font()
@@ -111,7 +136,7 @@ class Blackjack(QWidget):
         layout.setAlignment(player_buttons, Qt.AlignmentFlag.AlignHCenter | Qt.AlignmentFlag.AlignBottom)
         layout.setAlignment(button_back, Qt.AlignmentFlag.AlignHCenter | Qt.AlignmentFlag.AlignBottom)
         layout.setSpacing(5)
-        self.setLayout(layout)
+        self.setLayout(back)
 
 
     def deal_cards(self):
@@ -152,6 +177,8 @@ class Blackjack(QWidget):
         self.update_player_hand()
         if self.count_points(hand_player) > 21:
             message = QMessageBox.critical(self, "Bust", "You lose!")
+            global lose
+            lose += 1
             self.reset_game()
 
 
@@ -160,17 +187,24 @@ class Blackjack(QWidget):
 
     def dealer_turn(self):
         hand_dealer.append(cards.deal_card())
+        global win
+        global lose
         while self.count_points(hand_dealer) < 17:
             hand_dealer.append(cards.deal_card())
-            self.update_dealer_hand()
+        self.update_dealer_hand()
         if self.count_points(hand_dealer) > 21:
             message = QMessageBox.information(self, "Win", "You win!")
+            win += 1
         else:
             if self.count_points(hand_dealer) > self.count_points(hand_player):
                 message = QMessageBox.critical(self, "Lose", "You lose!")
+                lose += 1
+            elif self.count_points(hand_dealer) == self.count_points(hand_player):
+                message = QMessageBox.information(self, "Tie", "You tie!")
             else:
                 message = QMessageBox.information(self, "Win", "You win!")
-        self.update_dealer_hand()
+                win += 1
+
         self.reset_game()
 
 
@@ -194,6 +228,7 @@ class Blackjack(QWidget):
         cards.shuffle()
         hand_player.clear()
         hand_dealer.clear()
+        self.win_lose.setText(f"Win: {win}\nLose: {lose}")
         self.button_deal.show()
         self.button_hit.hide()
         self.button_stand.hide()

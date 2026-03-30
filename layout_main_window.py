@@ -13,7 +13,7 @@ class MainWindow(QMainWindow):
         self.setWindowTitle("Card Games")
         self.setFixedSize(1200, 600)
         self.setAutoFillBackground(True)
-        self.setStyleSheet("background-color:black")
+        self.setStyleSheet("background-color:black; color: white;")
         self.widget = MainMenu(self)
 
 

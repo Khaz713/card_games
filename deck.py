@@ -35,9 +35,9 @@ class Deck:
         "K": 13,
     }
 
-    def __init__(self):
+    def __init__(self, values=None):
         self.cards = []
-        self.create_deck()
+        self.create_deck(values)
 
     def create_deck(self, values=VALUES_DEFAULT, reset=False):
         if reset:

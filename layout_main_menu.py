@@ -13,19 +13,19 @@ class MainMenu(QWidget):
         layout.addWidget(label)
 
         button1 = QPushButton("Blackjack")
-        button1.setStyleSheet("background-color:white")
+        button1.setStyleSheet("background-color:white; color: black; font-size: 12pt; font-weight: bold")
         button1.setFixedSize(150, 50)
         button1.clicked.connect(self.button_blackjack)
         layout.addWidget(button1)
 
         button2 = QPushButton("Scoundrel")
-        button2.setStyleSheet("background-color:white")
+        button2.setStyleSheet("background-color:white; color: gray; font-size: 12pt; font-weight: bold")
         button2.setFixedSize(150, 50)
         button2.setEnabled(False)
         layout.addWidget(button2)
 
         button3 = QPushButton("Exit")
-        button3.setStyleSheet("background-color:red")
+        button3.setStyleSheet("background-color:red; color: black; font-size: 12pt; font-weight: bold")
         button3.setFixedSize(150, 50)
         button3.clicked.connect(self.button_exit)
         layout.addWidget(button3)
